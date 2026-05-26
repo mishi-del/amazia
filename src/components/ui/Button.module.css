@@ -1,0 +1,99 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 0;
+  transition: opacity var(--transition), background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+
+.sm {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.65rem;
+}
+
+.md {
+  padding: 0.85rem 1.75rem;
+  font-size: 0.6875rem;
+}
+
+.lg {
+  padding: 1rem 2.25rem;
+  font-size: 0.6875rem;
+}
+
+.primary {
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+.primary:hover {
+  background: var(--teal-dark);
+}
+
+.teal {
+  background: var(--teal);
+  color: var(--white);
+  box-shadow: 0 4px 24px rgba(26, 92, 82, 0.25);
+}
+
+.teal:hover {
+  background: var(--teal-light);
+  box-shadow: 0 6px 28px rgba(26, 92, 82, 0.3);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--charcoal);
+  border: 1px solid var(--charcoal);
+}
+
+.secondary:hover {
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+.light {
+  background: var(--white);
+  color: var(--charcoal);
+}
+
+.light:hover {
+  background: var(--cream);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.ghost:hover {
+  border-color: var(--white);
+}
+
+.text {
+  background: none;
+  color: var(--charcoal);
+  padding: 0;
+  letter-spacing: 0.06em;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.text:hover {
+  color: var(--teal);
+}
+
+.textLight {
+  background: none;
+  color: var(--white);
+  padding: 0;
+  letter-spacing: 0.06em;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

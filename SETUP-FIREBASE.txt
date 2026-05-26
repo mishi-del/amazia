@@ -1,0 +1,91 @@
+AMAZIA — Firebase setup (simple — email verify + Google)
+=======================================================
+
+Firebase handles:
+  - Sign up / sign in
+  - Verification email (no Gmail SMTP needed)
+  - Forgot password email
+  - Continue with Google
+
+You do NOT need SETUP-GMAIL-GOOGLE.txt anymore for login.
+
+
+STEP 1 — Create Firebase project
+--------------------------------
+1. Go to: https://console.firebase.google.com/
+2. Click "Add project" → name: AMAZIA → Continue → Create
+3. When asked about Analytics, you can turn it OFF → Create project
+
+
+STEP 2 — Add a web app
+----------------------
+1. On the project home, click the Web icon </>  "Add app"
+2. App nickname: AMAZIA Web → Register app
+3. Copy the firebaseConfig values shown (apiKey, authDomain, etc.)
+
+
+STEP 3 — Enable sign-in methods
+-------------------------------
+1. Left menu: Build → Authentication → Get started
+2. Sign-in method tab:
+
+   EMAIL/PASSWORD
+   - Click Email/Password → Enable → Save
+
+   GOOGLE
+   - Click Google → Enable
+   - Support email: your Gmail → Save
+
+3. Settings tab → Authorized domains  *** REQUIRED for email links ***
+   - Must include:  localhost
+   - When you go live, add:  amazia.pk  (your real domain)
+   - Without this, Gmail verification links will NOT work
+
+
+STEP 4 — Paste keys into .env
+-----------------------------
+Open:  C:\Users\HP 640\Desktop\amazia\.env
+
+Add these lines (use YOUR values from Firebase):
+
+VITE_FIREBASE_API_KEY=AIza...
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+VITE_FIREBASE_APP_ID=1:123456789:web:abc123
+
+Keep MONGODB_URI for reviews/newsletter storage.
+You can DELETE or leave empty: JWT_SECRET, SMTP_*, GOOGLE_CLIENT_ID (old backend auth).
+
+
+STEP 5 — Run the site
+---------------------
+Double-click:  RESTART-AMAZIA.bat
+
+Open:  http://localhost:5173
+
+Test:
+  - Sign up → check email for Firebase verification link
+  - Continue with Google
+
+
+TROUBLESHOOTING
+---------------
+"Firebase is not set up"
+  → Add VITE_FIREBASE_* lines to .env and restart
+
+Google popup blocked
+  → Allow popups for localhost in the browser
+
+Verification email not arriving
+  → Check Spam / Promotions folder in Gmail
+  → Wait 2–5 minutes (first email can be slow)
+  → Firebase → Authentication → Templates → Email address verification
+
+Verification link opens but nothing happens
+  → Link must open http://localhost:5173 (site must be running via RESTART-AMAZIA.bat)
+  → Authentication → Settings → Authorized domains → add "localhost"
+  → After clicking link you should see "Email verified!" then Sign in
+
+After verifying, you must still click Sign in (email + password)

@@ -1,0 +1,32 @@
+:root {
+  --teal: #1a5c52;
+  --teal-dark: #0f3b34;
+  --teal-light: #2a7a6e;
+  --gold: #c9a84c;
+  --gold-light: #d4b96a;
+  --gold-dark: #a88a3d;
+  --ivory: #faf8f5;
+  --cream: #f5f2ec;
+  --charcoal: #1a1a1a;
+  --muted: #6b6b6b;
+  --sage: #eef5f3;
+  --rose: #f0e8df;
+  --white: #ffffff;
+  --line: rgba(26, 26, 26, 0.1);
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent: 'Inter', sans-serif;
+
+  --max-width: 1280px;
+  --section-padding-y: clamp(5rem, 12vw, 8rem);
+  --section-padding-x: clamp(1.25rem, 5vw, 3rem);
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  --transition: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  --announcement-height: 32px;
+  --navbar-height: 56px;
+  --header-offset: calc(var(--announcement-height) + var(--navbar-height));
+}

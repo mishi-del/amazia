@@ -1,0 +1,119 @@
+.navbar {
+  position: sticky;
+  top: var(--announcement-height);
+  z-index: 1000;
+  height: var(--navbar-height);
+  background: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.scrolled {
+  border-bottom-color: var(--line);
+  background: rgba(250, 248, 245, 0.98);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  color: var(--teal-dark);
+  transition: color var(--transition);
+}
+
+.logo:hover {
+  color: var(--teal);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.link {
+  display: none;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color var(--transition);
+}
+
+.link:hover {
+  color: var(--charcoal);
+}
+
+.shop {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--teal);
+  padding: 0.55rem 1rem;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.shop:hover {
+  background: var(--teal-light);
+  transform: translateY(-1px);
+}
+
+.authWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.authBtn {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.authBtn:hover {
+  color: var(--teal-dark);
+}
+
+.userName {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--charcoal);
+  max-width: 5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .link {
+    display: block;
+  }
+
+  .userName {
+    max-width: 6rem;
+  }
+}

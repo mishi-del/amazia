@@ -1,0 +1,73 @@
+AMAZIA — Gmail verification emails + Google sign-in
+=====================================================
+
+Both need values in your .env file, then restart with RESTART-AMAZIA.bat
+
+
+PART 1 — GMAIL (verification + password reset emails)
+-----------------------------------------------------
+
+1. Use a Gmail account (e.g. amaziaqrid@gmail.com).
+
+2. Turn on 2-Step Verification for that Google account:
+   https://myaccount.google.com/security
+
+3. Create an App Password:
+   - Google Account → Security → 2-Step Verification → App passwords
+   - App: Mail, Device: Windows Computer
+   - Copy the 16-character password (like: abcd efgh ijkl mnop)
+
+4. Open .env in the amazia folder and fill in:
+
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_SECURE=false
+   SMTP_USER=your.email@gmail.com
+   SMTP_PASS=your-16-char-app-password-no-spaces
+   EMAIL_FROM=AMAZIA <your.email@gmail.com>
+
+5. Save .env and run RESTART-AMAZIA.bat
+
+6. Test: Sign up with an email → check inbox (and Spam) for
+   "Verify your AMAZIA account"
+
+   If SMTP is NOT set, the verification link prints in the black
+   terminal window instead (copy it into the browser).
+
+
+PART 2 — GOOGLE "Continue with Google"
+--------------------------------------
+
+1. Go to: https://console.cloud.google.com/
+
+2. Create a project (name: AMAZIA).
+
+3. APIs & Services → OAuth consent screen
+   - User type: External
+   - App name: AMAZIA
+   - User support email: your Gmail
+   - Developer email: your Gmail
+   - Save
+
+4. APIs & Services → Credentials → Create Credentials
+   → OAuth client ID → Web application
+
+5. Authorized redirect URIs — add EXACTLY this line:
+
+   http://localhost:3001/api/auth/google/callback
+
+6. Copy Client ID and Client Secret into .env:
+
+   GOOGLE_CLIENT_ID=xxxx.apps.googleusercontent.com
+   GOOGLE_CLIENT_SECRET=GOCSPX-xxxx
+
+7. Save .env and run RESTART-AMAZIA.bat
+
+8. On the site → Sign in → Continue with Google
+
+
+WHEN YOU GO LIVE (real website, not localhost)
+----------------------------------------------
+- Add redirect URI: https://YOUR-API-DOMAIN/api/auth/google/callback
+- Set API_PUBLIC_URL=https://YOUR-API-DOMAIN in .env
+- Set FRONTEND_URL=https://amazia.pk in .env

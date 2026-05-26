@@ -1,0 +1,119 @@
+.section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  background: var(--ivory);
+}
+
+.card {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(135deg, var(--sage) 0%, var(--white) 60%);
+  border: 1px solid rgba(26, 92, 82, 0.1);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-light));
+}
+
+.split {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.eyebrow {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.75rem;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+}
+
+.text {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  max-width: 400px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  border: 1px solid rgba(26, 92, 82, 0.12);
+  border-radius: 2px;
+  background: var(--white);
+  color: var(--charcoal);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(26, 92, 82, 0.08);
+}
+
+.success {
+  font-size: 0.9rem;
+  color: var(--teal);
+  font-weight: 500;
+}
+
+.error {
+  width: 100%;
+  color: #b54a4a;
+  font-size: 0.875rem;
+}
+
+.popupLink {
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.popupLink:hover {
+  color: var(--teal);
+}
+
+@media (min-width: 768px) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .form {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .input {
+    flex: 1;
+  }
+}

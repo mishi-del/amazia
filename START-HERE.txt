@@ -1,0 +1,37 @@
+AMAZIA - EASIEST WAY TO RUN (for you)
+=====================================
+
+STEP 1 (one time)
+  Double-click:  START-AMAZIA.bat
+
+  Wait until you see lines like:
+    - Local: http://localhost:5173
+    - AMAZIA API listening on http://localhost:3001
+    - Connected to MongoDB
+
+STEP 2
+  Open your browser (Chrome / Edge) and go to:
+
+    http://localhost:5173
+
+STEP 3 - try these on the website
+  - Top right: Sign in → Sign up (create account)
+  - Bottom right: AMAZIA Guide (chatbot)
+  - Leave a review, subscribe to email
+
+IMPORTANT
+  - Do NOT close the black window while using the site.
+  - To stop: close that window or press Ctrl+C in it.
+
+DATABASE
+  Right now it uses a TEMPORARY database on your PC (no Atlas needed).
+  Accounts work, but data resets when you close START-AMAZIA.bat.
+
+  LATER (optional - save data forever in the cloud):
+  1. In MongoDB Atlas: Cluster0 → Connect → Drivers → copy the connection string
+  2. Open the file:  atlas-connection.txt  in this folder
+  3. Paste the full link on line 1 (replace everything)
+  4. Double-click:  USE-ATLAS.bat
+  5. Then use START-AMAZIA.bat again
+
+If something is red / broken, send a screenshot of the black window to your developer.
