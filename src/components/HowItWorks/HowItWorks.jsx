@@ -1,47 +1,60 @@
 import { motion } from 'framer-motion'
-import styles from './HowItWorks.module.css'
-
-const steps = [
-  {
-    num: '01',
-    title: 'Cleanse + apply',
-    desc: '2–3 pumps on damp skin after cleansing. Press gently into face and neck.',
-  },
-  {
-    num: '02',
-    title: 'Repair — day 7',
-    desc: 'Ceramides and Ectoin reinforce your barrier. Redness and tightness ease.',
-  },
-  {
-    num: '03',
-    title: 'Strong & calm',
-    desc: 'Consistent use leaves skin resilient, balanced, and ready for actives again.',
-  },
-]
+import { ROUTINE_STEPS } from '../../constants/brand'
+import { fadeUp, staggerContainer, viewportOnce } from '../../lib/animations'
+import { useReducedMotion } from '../../lib/useReducedMotion'
 
 export default function HowItWorks() {
-  return (
-    <section className={styles.section} id="how-it-works">
-      <div className={styles.inner}>
-        <p className="label">How it works</p>
-        <h2 className={styles.heading}>Three steps. One routine.</h2>
+  const prefersReduced = useReducedMotion()
 
-        <div className={styles.steps}>
-          {steps.map((step, i) => (
-            <motion.article
-              key={step.num}
-              className={styles.step}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-            >
-              <span className={styles.num}>{step.num}</span>
-              <h3 className={styles.title}>{step.title}</h3>
-              <p className={styles.desc}>{step.desc}</p>
-            </motion.article>
-          ))}
+  return (
+    <section id="how-it-works" className="section-padding bg-amazia-cream">
+      <div className="container-content max-w-5xl">
+        <div className="mx-auto mb-10 max-w-content text-center md:mb-14">
+          <p className="label-accent">The 3-step routine</p>
+          <h2 className="mt-3 font-display text-3xl text-amazia-espresso md:text-4xl">
+            Three steps. One barrier routine.
+          </h2>
         </div>
+
+        {prefersReduced ? (
+          <div className="grid gap-6 md:grid-cols-3">
+            {ROUTINE_STEPS.map((step) => (
+              <article key={step.num} className="card-premium p-6 md:p-8">
+                <span className="font-display text-4xl text-amazia-gold/60">{step.num}</span>
+                <h3 className="mt-2 font-headline text-xl font-bold text-amazia-espresso">
+                  {step.title}
+                </h3>
+                <p className="mt-3 font-body text-sm leading-relaxed text-amazia-ink">
+                  {step.desc}
+                </p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="grid gap-6 md:grid-cols-3"
+          >
+            {ROUTINE_STEPS.map((step) => (
+              <motion.article
+                key={step.num}
+                variants={fadeUp}
+                className="card-premium p-6 md:p-8"
+              >
+                <span className="font-display text-4xl text-amazia-gold/60">{step.num}</span>
+                <h3 className="mt-2 font-headline text-xl font-bold text-amazia-espresso">
+                  {step.title}
+                </h3>
+                <p className="mt-3 font-body text-sm leading-relaxed text-amazia-ink">
+                  {step.desc}
+                </p>
+              </motion.article>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   )

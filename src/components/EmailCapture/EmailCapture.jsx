@@ -4,18 +4,19 @@ import Button from '../ui/Button'
 import { API } from '../../constants/links'
 import { postToApi } from '../../utils/api'
 import { useAuth } from '../../context/AuthContext'
-import styles from './EmailCapture.module.css'
+import { viewportOnce } from '../../lib/animations'
+import { trackLead } from '../../lib/analytics'
 
 export default function EmailCapture() {
   const { user } = useAuth()
   const [email, setEmail] = useState(user?.email || '')
   const [done, setDone] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     if (user?.email) setEmail(user.email)
   }, [user?.email])
-  const [sending, setSending] = useState(false)
-  const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -31,6 +32,7 @@ export default function EmailCapture() {
         source: 'footer_section',
       })
       setDone(true)
+      trackLead('footer_section')
       try {
         localStorage.setItem('amazia-email-popup', JSON.stringify({ subscribed: true }))
       } catch {
@@ -44,50 +46,59 @@ export default function EmailCapture() {
   }
 
   return (
-    <section className={styles.section} id="offer">
-      <motion.div
-        className={styles.card}
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className={styles.split}>
-          <div className={styles.copy}>
-            <p className={styles.eyebrow}>Stay in touch</p>
-            <h2 className={styles.heading}>10% off your first order.</h2>
-            <p className={styles.text}>
-              Barrier care tips, restock alerts, and exclusive offers — only from AMAZIA.
-            </p>
-          </div>
+    <section id="offer" className="section-padding bg-amazia-cream">
+      <div className="container-content max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="card-premium overflow-hidden"
+        >
+          <div className="grid gap-8 p-6 md:grid-cols-2 md:gap-12 md:p-10 lg:p-12">
+            <div>
+              <p className="label-accent">Lead magnet</p>
+              <h2 className="mt-2 font-display text-3xl text-amazia-espresso md:text-4xl">
+                10% off your first order.
+              </h2>
+              <p className="mt-4 font-body text-sm leading-relaxed text-amazia-ink">
+                Barrier care tips, restock alerts, and the Skin Barrier Guide PDF —
+                only from AMAZIA.
+              </p>
+            </div>
 
-          <div className={styles.formWrap}>
-            {done ? (
-              <p className={styles.success}>Thank you — check your inbox soon.</p>
-            ) : (
-              <form className={styles.form} onSubmit={handleSubmit}>
-                <label htmlFor="section-email" className="sr-only">
-                  Email
-                </label>
-                <input
-                  id="section-email"
-                  type="email"
-                  placeholder="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={sending}
-                  className={styles.input}
-                />
-                <Button type="submit" variant="teal" size="md" disabled={sending}>
-                  {sending ? 'Subscribing…' : 'Subscribe'}
-                </Button>
-                {error ? <p className={styles.error}>{error}</p> : null}
-              </form>
-            )}
+            <div className="flex flex-col justify-center">
+              {done ? (
+                <p className="font-headline text-lg italic text-amazia-teal">
+                  Thank you — check your inbox soon.
+                </p>
+              ) : (
+                <form className="space-y-3" onSubmit={handleSubmit}>
+                  <label htmlFor="section-email" className="sr-only">
+                    Email
+                  </label>
+                  <input
+                    id="section-email"
+                    type="email"
+                    placeholder="Email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={sending}
+                    className="w-full rounded-button border border-amazia-sand/80 bg-amazia-ivory px-4 py-3.5 font-body text-sm text-amazia-ink outline-none focus:border-amazia-teal"
+                  />
+                  <Button type="submit" variant="teal" disabled={sending} className="w-full">
+                    {sending ? 'Subscribing…' : 'Get 10% off'}
+                  </Button>
+                  {error ? (
+                    <p className="font-body text-xs text-amazia-red">{error}</p>
+                  ) : null}
+                </form>
+              )}
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   )
 }

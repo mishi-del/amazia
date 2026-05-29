@@ -1,181 +1,195 @@
 import { motion } from 'framer-motion'
-import Button from '../ui/Button'
 import ProductImage from '../ui/ProductImage'
+import FormulationBadge from '../trust/FormulationBadge'
+import SecureCheckoutNote from '../ui/SecureCheckoutNote'
 import { ASSETS } from '../../constants/assets'
-import { SHOP_URL, PRODUCT_PRICE } from '../../constants/links'
-import styles from './Hero.module.css'
+import {
+  FLOATING_INGREDIENTS,
+  HERO_ASPIRATION,
+  HERO_HEADLINE,
+  HERO_PROBLEM,
+  HERO_SUBHEADLINE,
+  TRUST_BADGES,
+} from '../../constants/brand'
+import { PRODUCT_PRICE, SHOP_URL } from '../../constants/links'
+import { trackAddToCart } from '../../lib/analytics'
+import { scaleIn, staggerContainer, wordReveal } from '../../lib/animations'
+import { useReducedMotion } from '../../lib/useReducedMotion'
 
-const ease = [0.22, 1, 0.36, 1]
+function HeroCopy({ motionProps = {} }) {
+  const words = HERO_HEADLINE.split(' ')
+  const Tag = motionProps.variants ? motion.p : 'p'
+  const TagDiv = motionProps.variants ? motion.div : 'div'
+  const TagH1 = motionProps.variants ? motion.h1 : 'h1'
+  const TagSpan = motionProps.variants ? motion.span : 'span'
 
-const floatingTags = [
-  { label: 'Ceramides', style: 'tagLeft' },
-  { label: 'Ectoin', style: 'tagRight' },
-  { label: 'Fragrance-free', style: 'tagBottom' },
-]
-
-function Line({ children, delay = 0, className = '' }) {
   return (
-    <span className={styles.lineMask}>
-      <motion.span
-        className={`${styles.line} ${className}`}
-        initial={{ y: '110%', opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.95, delay, ease }}
+    <div className="space-y-6 lg:space-y-8">
+      <TagDiv
+        {...(motionProps.variants ? { variants: wordReveal, custom: 0 } : {})}
+        className="trust-bar-scroll flex-wrap gap-3"
       >
-        {children}
-      </motion.span>
-    </span>
+        {TRUST_BADGES.map((b) => (
+          <span key={b.id} className="trust-badge">
+            {b.label}
+          </span>
+        ))}
+        <FormulationBadge size="small" />
+      </TagDiv>
+
+      <TagH1 className="font-display leading-tight">
+        <TagSpan
+          {...(motionProps.variants ? { variants: wordReveal, custom: 0 } : {})}
+          className="mb-3 block font-body text-lg font-medium normal-case tracking-normal text-amazia-ink xs:text-xl sm:text-2xl md:text-2xl"
+        >
+          {HERO_PROBLEM}
+        </TagSpan>
+        <TagSpan
+          {...(motionProps.variants ? { variants: wordReveal, custom: 1 } : {})}
+          className="mb-3 block font-headline text-xl italic text-amazia-teal xs:text-2xl sm:text-3xl"
+        >
+          {HERO_ASPIRATION}
+        </TagSpan>
+        <span className="block text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl">
+          {words.map((word, i) =>
+            motionProps.variants ? (
+              <motion.span
+                key={i}
+                custom={i + 2}
+                variants={wordReveal}
+                initial="hidden"
+                animate="show"
+                className="gold-gradient mr-2 inline-block"
+              >
+                {word}
+              </motion.span>
+            ) : (
+              <span key={i} className="gold-gradient mr-2 inline-block">
+                {word}
+              </span>
+            )
+          )}
+        </span>
+      </TagH1>
+
+      <Tag
+        {...(motionProps.variants ? { variants: wordReveal, custom: words.length + 2 } : {})}
+        className="max-w-content font-headline text-base italic text-amazia-ink sm:text-lg lg:text-xl"
+      >
+        {HERO_SUBHEADLINE}
+      </Tag>
+
+      <TagDiv
+        {...(motionProps.variants ? { variants: wordReveal, custom: words.length + 3 } : {})}
+        className="flex flex-col gap-3 sm:flex-row sm:gap-4"
+      >
+        <a
+          href={SHOP_URL}
+          className="btn-primary"
+          onClick={() => trackAddToCart('Barrier Support Serum', 3800)}
+        >
+          Shop Barrier Serum — {PRODUCT_PRICE}
+        </a>
+        <a href="#skin-quiz" className="btn-secondary">
+          Take the Skin Quiz
+        </a>
+      </TagDiv>
+
+      <SecureCheckoutNote />
+
+      <TagDiv
+        {...(motionProps.variants ? { variants: wordReveal, custom: words.length + 4 } : {})}
+        className="cod-callout"
+      >
+        <span className="text-xl text-amazia-sage sm:text-2xl" aria-hidden="true">
+          ✓
+        </span>
+        <div>
+          <p className="font-body text-sm font-semibold text-amazia-sage sm:text-base">
+            Cash on Delivery — No advance payment
+          </p>
+          <p className="mt-1 font-body text-xs text-amazia-ink-light sm:text-sm">
+            Nationwide delivery in 3–5 business days · 7-day returns
+          </p>
+        </div>
+      </TagDiv>
+    </div>
+  )
+}
+
+function HeroVisual({ animated }) {
+  const ImgWrap = animated ? motion.div : 'div'
+  const imgProps = animated
+    ? { variants: scaleIn, initial: 'hidden', animate: 'show' }
+    : {}
+
+  return (
+    <ImgWrap {...imgProps} className="relative mt-8 lg:mt-0">
+      <ProductImage
+        src={ASSETS.hero}
+        alt="AMAZIA Barrier Support Serum — Pakistan"
+        variant="hero"
+        priority
+        className="mx-auto w-full max-w-xs drop-shadow-2xl sm:max-w-sm md:max-w-md lg:max-w-full"
+      />
+      {FLOATING_INGREDIENTS.map((b, i) => {
+        const Badge = animated ? motion.div : 'div'
+        const badgeProps = animated
+          ? {
+              initial: { opacity: 0, scale: 0.8 },
+              animate: { opacity: 1, scale: 1 },
+              transition: { delay: 0.8 + i * 0.2, duration: 0.5 },
+            }
+          : {}
+        return (
+          <Badge
+            key={b.text}
+            {...badgeProps}
+            style={{
+              position: 'absolute',
+              top: b.top,
+              bottom: b.bottom,
+              left: b.left,
+              right: b.right,
+            }}
+            className="hidden rounded-pill border border-amazia-teal/20 bg-white px-3 py-1.5 shadow-lg md:block lg:px-4 lg:py-2"
+          >
+            <span className="font-body text-xs font-bold text-amazia-teal lg:text-sm">
+              {b.text}
+            </span>
+          </Badge>
+        )
+      })}
+    </ImgWrap>
   )
 }
 
 export default function Hero() {
+  const prefersReduced = useReducedMotion()
+
+  if (prefersReduced) {
+    return (
+      <section id="hero" className="flex min-h-screen items-center bg-amazia-ivory section-padding">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <HeroCopy />
+            <HeroVisual />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
-    <section className={styles.hero} id="hero">
-      <div className={styles.bg} aria-hidden="true">
-        <motion.div
-          className={styles.orb1}
-          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className={styles.orb2}
-          animate={{ x: [0, -25, 0], y: [0, 15, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <div className={styles.gridFade} />
-      </div>
-
-      <div className={styles.inner}>
-        <div className={styles.copy}>
-          <motion.div
-            className={styles.eyebrow}
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease }}
-          >
-            <span className={styles.eyebrowDot} />
-            Barrier Support Serum · 30ml
+    <section id="hero" className="flex min-h-screen items-center bg-amazia-ivory section-padding">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          <motion.div variants={staggerContainer} initial="hidden" animate="show">
+            <HeroCopy motionProps={{ variants: wordReveal }} />
           </motion.div>
-
-          <h1 className={styles.heading}>
-            <Line delay={0.2}>Your skin barrier,</Line>
-            <Line delay={0.32} className={styles.headingAccent}>
-              rebuilt.
-            </Line>
-          </h1>
-
-          <motion.p
-            className={styles.sub}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55, ease }}
-          >
-            Ceramides, Ectoin & Centella — fragrance-free, pH-balanced,
-            made in Pakistan.
-          </motion.p>
-
-          <motion.div
-            className={styles.accentRule}
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.9, delay: 0.65, ease }}
-          />
-
-          <motion.div
-            className={styles.actions}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.75, ease }}
-          >
-            <Button href={SHOP_URL} variant="teal" size="lg">
-              Shop — {PRODUCT_PRICE}
-            </Button>
-            <a href="#product" className={styles.learn}>
-              Explore the formula
-            </a>
-          </motion.div>
-
-          <motion.div
-            className={styles.chips}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.95 }}
-          >
-            <span>COD nationwide</span>
-            <span>Free ship Rs. 4,500+</span>
-          </motion.div>
-        </div>
-
-        <div className={styles.stage}>
-          <motion.div
-            className={styles.pedestal}
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.25, ease }}
-            aria-hidden="true"
-          />
-          <motion.div
-            className={styles.productWrap}
-            initial={{ opacity: 0, scale: 0.88, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1.1, delay: 0.35, ease }}
-          >
-            <motion.div
-              className={styles.productFloat}
-              animate={{ y: [0, -16, 0] }}
-              transition={{
-                duration: 5.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            >
-              <ProductImage
-                src={ASSETS.hero}
-                alt="AMAZIA Barrier Support Serum 30ml"
-                variant="hero"
-                priority
-              />
-            </motion.div>
-          </motion.div>
-
-          {floatingTags.map((tag, i) => (
-            <motion.span
-              key={tag.label}
-              className={`${styles.tag} ${styles[tag.style]}`}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.9 + i * 0.12, ease }}
-            >
-              <motion.span
-                animate={{ y: [0, i % 2 === 0 ? -6 : 6, 0] }}
-                transition={{
-                  duration: 4 + i,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                {tag.label}
-              </motion.span>
-            </motion.span>
-          ))}
+          <HeroVisual animated />
         </div>
       </div>
-
-      <motion.a
-        href="#story"
-        className={styles.scroll}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.6 }}
-        aria-label="Scroll to learn more"
-      >
-        <motion.span
-          className={styles.scrollLine}
-          animate={{ scaleY: [0.4, 1, 0.4] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <span className={styles.scrollText}>Scroll</span>
-      </motion.a>
     </section>
   )
 }

@@ -1,0 +1,97 @@
+AMAZIA — DEPLOY IN 20 MINUTES (easiest path)
+============================================
+
+You need 3 free accounts (if you don't have them):
+  - github.com
+  - render.com
+  - vercel.com   OR use Firebase Hosting (you already use Firebase)
+
+
+STEP 1 — Put code on GitHub
+---------------------------
+1. Go to https://github.com/new
+2. Repository name: amazia
+3. Create repository (empty, no README)
+4. On your PC, open PowerShell in the amazia folder and run:
+
+   cd "C:\Users\HP 640\Desktop\amazia"
+   git remote add origin https://github.com/mishi-del/amazia.git
+   git branch -M main
+   git push -u origin main
+
+   (GitHub will ask you to sign in — use browser login)
+
+
+STEP 2 — Deploy API on Render (backend)
+---------------------------------------
+1. https://dashboard.render.com → Sign up → New + → Web Service
+2. Connect GitHub → select "amazia" repo
+3. Settings:
+   Name: amazia-api
+   Build: npm install
+   Start: node server/index.js
+4. Environment → Add:
+
+   MONGODB_URI = (copy from your .env file)
+   CORS_ORIGIN = https://YOUR-SITE.vercel.app   (fill after step 3)
+   FRONTEND_URL = same as CORS_ORIGIN
+   API_PUBLIC_URL = https://amazia-api.onrender.com   (use your Render URL)
+
+5. Create Web Service → wait until Live
+6. Open: https://amazia-api.onrender.com/api/health  → must show "ok": true
+
+
+STEP 3A — Deploy website on Vercel (recommended)
+----------------------------------------------
+1. https://vercel.com → Sign up with GitHub
+2. Add New Project → Import "amazia"
+3. Environment Variables — add ALL from your .env:
+
+   VITE_FIREBASE_API_KEY
+   VITE_FIREBASE_AUTH_DOMAIN
+   VITE_FIREBASE_PROJECT_ID
+   VITE_FIREBASE_STORAGE_BUCKET
+   VITE_FIREBASE_MESSAGING_SENDER_ID
+   VITE_FIREBASE_APP_ID
+   VITE_API_URL = https://amazia-api.onrender.com
+   VITE_SITE_URL = https://your-project.vercel.app  (after first deploy)
+
+4. Deploy → copy your URL like https://amazia-xxxxx.vercel.app
+5. Go back to Render → update CORS_ORIGIN and FRONTEND_URL to that URL → redeploy
+
+
+STEP 3B — OR deploy website on Firebase Hosting
+-----------------------------------------------
+1. npm install -g firebase-tools
+2. firebase login
+3. cd "C:\Users\HP 640\Desktop\amazia"
+4. Set in .env then build:
+   set VITE_API_URL=https://amazia-api.onrender.com
+   npm run build
+5. firebase use amazia-5e609
+6. firebase deploy --only hosting
+7. Your site: https://amazia-5e609.web.app
+
+
+STEP 4 — Firebase (required for login on live site)
+---------------------------------------------------
+Firebase Console → Authentication → Settings → Authorized domains → Add:
+
+   your-project.vercel.app
+   OR amazia-5e609.web.app
+   OR amazia.pk (when you add custom domain)
+
+
+STEP 5 — MongoDB Atlas
+----------------------
+Network Access → Allow 0.0.0.0/0  (so Render can connect)
+
+
+DONE — Test live site
+---------------------
+- Sign up → Gmail verification (link must open your LIVE URL, not localhost)
+- Google sign in
+- Submit a review
+- AMAZIA Guide chat
+
+Local dev still works: RESTART-AMAZIA.bat + localhost:5173

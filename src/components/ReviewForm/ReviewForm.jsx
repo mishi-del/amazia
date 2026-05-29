@@ -5,7 +5,6 @@ import Button from '../ui/Button'
 import { API } from '../../constants/links'
 import { postToApi } from '../../utils/api'
 import { useAuth } from '../../context/AuthContext'
-import styles from './ReviewForm.module.css'
 
 const SKIN_TYPES = [
   'Sensitive',
@@ -15,14 +14,17 @@ const SKIN_TYPES = [
   'Normal',
   'Acne-prone',
   'Rosacea-prone',
-  'Barrier-damaged',
+  'Barrier-stressed',
 ]
+
+const inputClass =
+  'w-full rounded-button border border-amazia-sand/80 bg-amazia-ivory px-4 py-3 font-body text-sm text-amazia-ink outline-none focus:border-amazia-teal'
 
 export default function ReviewForm() {
   const { user } = useAuth()
   const [rating, setRating] = useState(0)
   const [hoverRating, setHoverRating] = useState(0)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [status, setStatus] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
   const [form, setForm] = useState({
@@ -32,31 +34,26 @@ export default function ReviewForm() {
     daysOfUse: '',
     review: '',
     email: '',
-    website: '', // honeypot
+    website: '',
   })
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
-
   const displayRating = hoverRating || rating
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setErrorMsg('')
-
     if (form.website) return
-
     if (rating < 1) {
       setErrorMsg('Please select a star rating.')
       return
     }
-
     if (form.review.trim().length < 20) {
       setErrorMsg('Please write at least 20 characters in your review.')
       return
     }
 
     setStatus('sending')
-
     try {
       await postToApi(API.reviews, {
         name: (form.name.trim() || user?.name) ?? '',
@@ -68,7 +65,6 @@ export default function ReviewForm() {
         email: form.email.trim() || user?.email || '',
         website: form.website,
       })
-
       setStatus('success')
       setForm({
         name: '',
@@ -91,19 +87,22 @@ export default function ReviewForm() {
   if (status === 'success') {
     return (
       <motion.div
-        className={styles.successBox}
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
+        className="card-premium mx-auto max-w-lg p-8 text-center"
       >
-        <div className={styles.successIcon}>✓</div>
-        <h3 className={styles.successTitle}>Thank you for your review</h3>
-        <p className={styles.successText}>
-          We received your feedback. Once approved, it may appear on this page. We
-          appreciate you helping other customers trust AMAZIA.
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amazia-sage/20 text-2xl text-amazia-sage">
+          ✓
+        </div>
+        <h3 className="mt-4 font-headline text-xl font-bold text-amazia-espresso">
+          Thank you for your review
+        </h3>
+        <p className="mt-2 font-body text-sm text-amazia-ink-light">
+          We received your feedback. Once approved, it may appear on this page.
         </p>
         <button
           type="button"
-          className={styles.resetBtn}
+          className="mt-6 font-body text-sm text-amazia-teal underline"
           onClick={() => setStatus('idle')}
         >
           Submit another review
@@ -113,57 +112,57 @@ export default function ReviewForm() {
   }
 
   return (
-    <div className={styles.wrap} id="write-review">
-      <div className={styles.header}>
-        <p className={styles.eyebrow}>Share your experience</p>
-        <h3 className={styles.title}>Leave a review</h3>
-        <p className={styles.intro}>
-          Used Barrier Support Serum? Tell us honestly — your skin type, city, and
-          results help others decide.
+    <div id="write-review" className="card-premium mx-auto max-w-2xl p-6 md:p-10">
+      <div className="mb-8 text-center">
+        <p className="label-accent">Share your experience</p>
+        <h3 className="mt-2 font-display text-2xl text-amazia-espresso">Leave a review</h3>
+        <p className="mt-2 font-body text-sm text-amazia-ink-light">
+          Used Barrier Support Serum? Your city and skin type help others decide.
         </p>
       </div>
 
-      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      <form className="space-y-5" onSubmit={handleSubmit} noValidate>
         <input
           type="text"
           name="website"
           value={form.website}
           onChange={update('website')}
-          className={styles.honeypot}
+          className="sr-only"
           tabIndex={-1}
           autoComplete="off"
           aria-hidden="true"
         />
 
-        <div className={styles.ratingBlock}>
-          <span className={styles.label}>Your rating *</span>
-          <div className={styles.stars} role="group" aria-label="Star rating">
+        <div>
+          <span className="label-accent">Your rating *</span>
+          <div className="mt-2 flex gap-1" role="group" aria-label="Star rating">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
                 type="button"
-                className={styles.starBtn}
+                className="p-1"
                 onClick={() => setRating(star)}
                 onMouseEnter={() => setHoverRating(star)}
                 onMouseLeave={() => setHoverRating(0)}
-                aria-label={`${star} star${star > 1 ? 's' : ''}`}
+                aria-label={`${star} stars`}
                 aria-pressed={rating === star}
               >
                 <Star
                   size={28}
                   strokeWidth={1.25}
-                  fill={star <= displayRating ? 'var(--gold)' : 'transparent'}
-                  stroke={star <= displayRating ? 'var(--gold)' : 'var(--line)'}
-                  className={styles.starIcon}
+                  fill={star <= displayRating ? '#C9963A' : 'transparent'}
+                  stroke={star <= displayRating ? '#C9963A' : '#D4B896'}
                 />
               </button>
             ))}
           </div>
         </div>
 
-        <div className={styles.row}>
-          <div className={styles.field}>
-            <label htmlFor="review-name">Name *</label>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="review-name" className="label-accent mb-1 block">
+              Name *
+            </label>
             <input
               id="review-name"
               type="text"
@@ -172,10 +171,13 @@ export default function ReviewForm() {
               placeholder="e.g. Sana M."
               required
               maxLength={80}
+              className={inputClass}
             />
           </div>
-          <div className={styles.field}>
-            <label htmlFor="review-city">City *</label>
+          <div>
+            <label htmlFor="review-city" className="label-accent mb-1 block">
+              City *
+            </label>
             <input
               id="review-city"
               type="text"
@@ -184,18 +186,22 @@ export default function ReviewForm() {
               placeholder="e.g. Lahore"
               required
               maxLength={60}
+              className={inputClass}
             />
           </div>
         </div>
 
-        <div className={styles.row}>
-          <div className={styles.field}>
-            <label htmlFor="review-skin">Skin type *</label>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="review-skin" className="label-accent mb-1 block">
+              Skin type *
+            </label>
             <select
               id="review-skin"
               value={form.skinType}
               onChange={update('skinType')}
               required
+              className={inputClass}
             >
               <option value="">Select…</option>
               {SKIN_TYPES.map((t) => (
@@ -205,8 +211,10 @@ export default function ReviewForm() {
               ))}
             </select>
           </div>
-          <div className={styles.field}>
-            <label htmlFor="review-days">Days of use</label>
+          <div>
+            <label htmlFor="review-days" className="label-accent mb-1 block">
+              Days of use
+            </label>
             <input
               id="review-days"
               type="number"
@@ -215,23 +223,29 @@ export default function ReviewForm() {
               value={form.daysOfUse}
               onChange={update('daysOfUse')}
               placeholder="e.g. 14"
+              className={inputClass}
             />
           </div>
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="review-email">Email (optional)</label>
+        <div>
+          <label htmlFor="review-email" className="label-accent mb-1 block">
+            Email (optional)
+          </label>
           <input
             id="review-email"
             type="email"
             value={form.email}
             onChange={update('email')}
-            placeholder="Only if we need to verify your order"
+            placeholder="For order verification only"
+            className={inputClass}
           />
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="review-text">Your review *</label>
+        <div>
+          <label htmlFor="review-text" className="label-accent mb-1 block">
+            Your review *
+          </label>
           <textarea
             id="review-text"
             value={form.review}
@@ -240,25 +254,23 @@ export default function ReviewForm() {
             required
             rows={4}
             maxLength={600}
+            className={`${inputClass} resize-y`}
           />
-          <span className={styles.charCount}>{form.review.length}/600</span>
+          <span className="mt-1 block text-right font-body text-xs text-amazia-ink-light">
+            {form.review.length}/600
+          </span>
         </div>
 
-        {errorMsg && <p className={styles.error}>{errorMsg}</p>}
+        {errorMsg && (
+          <p className="font-body text-sm text-amazia-red">{errorMsg}</p>
+        )}
 
-        <Button
-          type="submit"
-          variant="teal"
-          size="lg"
-          className={styles.submit}
-          disabled={status === 'sending'}
-        >
+        <Button type="submit" variant="teal" size="lg" className="w-full" disabled={status === 'sending'}>
           {status === 'sending' ? 'Sending…' : 'Submit review'}
         </Button>
 
-        <p className={styles.privacy}>
-          By submitting, you agree we may display your first name, city, and review
-          on our website after moderation.
+        <p className="text-center font-body text-[11px] text-amazia-ink-light">
+          By submitting, you agree we may display your name, city, and review after moderation.
         </p>
       </form>
     </div>

@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import styles from './ProductImage.module.css'
+
+const variantClasses = {
+  hero: 'aspect-[3/4] max-h-[min(80vh,720px)]',
+  product: 'aspect-[3/4] max-w-md mx-auto',
+  lifestyle: 'aspect-[4/5] w-full',
+}
 
 export default function ProductImage({
   src,
@@ -12,22 +17,28 @@ export default function ProductImage({
   const showPlaceholder = failed || !src
 
   return (
-    <div className={`${styles.frame} ${styles[variant]} ${className}`}>
+    <div
+      className={`relative overflow-hidden rounded-card bg-amazia-cream/50 ${variantClasses[variant] || ''} ${className}`}
+    >
       {!showPlaceholder ? (
         <img
           src={src}
           alt={alt}
-          className={styles.img}
+          className="h-full w-full object-contain"
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           onError={() => setFailed(true)}
         />
       ) : (
-        <div className={styles.placeholder} role="img" aria-label={alt}>
-          <div className={styles.placeholderInner}>
-            <span className={styles.placeholderBrand}>AMAZIA</span>
-            <span className={styles.placeholderHint}>Add image to public/assets</span>
-          </div>
+        <div
+          className="flex h-full min-h-[280px] w-full flex-col items-center justify-center gap-2 p-8 text-center"
+          role="img"
+          aria-label={alt}
+        >
+          <span className="font-display text-3xl text-amazia-teal">AMAZIA</span>
+          <span className="font-body text-xs text-amazia-ink-light">
+            Add image to public/assets
+          </span>
         </div>
       )}
     </div>

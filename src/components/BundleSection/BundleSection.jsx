@@ -2,80 +2,75 @@ import { motion } from 'framer-motion'
 import ProductImage from '../ui/ProductImage'
 import Button from '../ui/Button'
 import { ASSETS } from '../../constants/assets'
+import { BUNDLES } from '../../constants/brand'
 import { SHOP_URL } from '../../constants/links'
-import styles from './BundleSection.module.css'
-
-const bundles = [
-  {
-    name: 'Serum only',
-    price: 'Rs. 3,800',
-    note: 'Barrier Support Serum · 30ml',
-    tag: null,
-    cta: 'Shop serum',
-  },
-  {
-    name: 'Serum + cream',
-    price: 'Rs. 6,900',
-    note: 'Save Rs. 700 · Full AM/PM routine',
-    tag: 'Most popular',
-    cta: 'Shop duo',
-  },
-  {
-    name: 'Full routine kit',
-    price: 'Rs. 9,800',
-    note: 'Save Rs. 1,600 · Serum, cream, cleanser & SPF',
-    tag: null,
-    cta: 'Shop kit',
-  },
-]
+import { fadeUp, staggerContainer, viewportOnce } from '../../lib/animations'
 
 export default function BundleSection() {
   return (
-    <section className={styles.section} id="bundles">
-      <div className={styles.inner}>
-        <div className={styles.header}>
-          <p className="label">Shop</p>
-          <h2 className={styles.heading}>Choose your routine.</h2>
+    <section id="bundles" className="section-padding-lg bg-amazia-ivory">
+      <div className="container-content max-w-5xl">
+        <div className="mx-auto mb-10 max-w-content text-center">
+          <p className="label-accent">Shop bundles</p>
+          <h2 className="mt-3 font-display text-3xl text-amazia-espresso md:text-4xl">
+            Complete your barrier routine.
+          </h2>
+          <p className="mt-3 font-body text-sm text-amazia-ink-light">
+            Highest value on bundles — routine completion logic.
+          </p>
         </div>
 
         <motion.div
-          className={styles.productPreview}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={viewportOnce}
+          className="mb-10"
         >
           <ProductImage
             src={ASSETS.bundle}
-            alt="AMAZIA barrier repair routine bundle"
+            alt="AMAZIA barrier care routine bundle"
             variant="product"
+            className="mx-auto max-w-sm"
           />
         </motion.div>
 
-        <div className={styles.grid}>
-          {bundles.map((b, i) => (
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          className="grid gap-6 md:grid-cols-3"
+        >
+          {BUNDLES.map((b) => (
             <motion.article
               key={b.name}
-              className={`${styles.card} ${b.tag ? styles.featured_card : ''}`}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              variants={fadeUp}
+              className={`card-premium relative flex flex-col p-6 md:p-8 ${
+                b.tag ? 'ring-2 ring-amazia-gold' : ''
+              }`}
             >
-              {b.tag && <span className={styles.tag}>{b.tag}</span>}
-              <h3 className={styles.name}>{b.name}</h3>
-              <p className={styles.price}>{b.price}</p>
-              <p className={styles.note}>{b.note}</p>
+              {b.tag && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-pill bg-amazia-gold px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wide text-amazia-espresso">
+                  {b.tag}
+                </span>
+              )}
+              <h3 className="font-headline text-xl font-bold text-amazia-espresso">
+                {b.name}
+              </h3>
+              <p className="mt-2 font-display text-2xl text-amazia-teal">{b.price}</p>
+              <p className="mt-2 flex-grow font-body text-sm text-amazia-ink-light">
+                {b.note}
+              </p>
               <Button
                 href={SHOP_URL}
-                variant={b.tag ? 'primary' : 'secondary'}
-                size="md"
-                className={styles.cta}
+                variant={b.tag ? 'teal' : 'secondary'}
+                className="mt-6 w-full !block text-center"
               >
                 {b.cta}
               </Button>
             </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

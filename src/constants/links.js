@@ -1,6 +1,13 @@
+import { PRODUCT } from './brand'
+
 export const SHOP_URL = '#bundles'
-export const WHATSAPP_URL = ''
-export const PRODUCT_PRICE = 'Rs. 3,800'
+export const PRODUCT_PRICE = PRODUCT.price
+
+/** Set VITE_WHATSAPP_NUMBER in .env e.g. 923001234567 */
+const wa = (import.meta.env.VITE_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+export const WHATSAPP_URL = wa
+  ? `https://wa.me/${wa}?text=${encodeURIComponent('Hi AMAZIA — I have a question about the Barrier Support Serum.')}`
+  : ''
 
 /**
  * Backend API — reviews, newsletter, chat (auth is Firebase on the frontend)

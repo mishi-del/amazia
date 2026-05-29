@@ -1,31 +1,65 @@
 import { motion } from 'framer-motion'
-import styles from './TrustBar.module.css'
+import { TRUST_BADGES } from '../../constants/brand'
+import { fadeUp, staggerContainer, viewportOnce } from '../../lib/animations'
+import { useReducedMotion } from '../../lib/useReducedMotion'
 
-const items = [
-  { title: 'Fragrance-free', sub: 'Zero scent, zero compromise' },
-  { title: 'Ceramides + Ectoin', sub: 'Barrier science' },
-  { title: 'pH 5.2–5.5', sub: 'Skin-balanced' },
-  { title: 'Made in Pakistan', sub: 'Local craft, global standard' },
+const details = [
+  { title: 'GMP Certified', sub: 'Nubra Labs, Pakistan' },
+  { title: 'ISO 9001:2015', sub: 'Quality management system' },
+  { title: 'Halal Certified', sub: 'PNAC-accredited halal body' },
+  { title: 'CoA on Every Batch', sub: 'Certificate of Analysis available' },
+  { title: 'Fragrance-Free', sub: 'pH 5.2–5.5 · Skin-balanced' },
 ]
 
 export default function TrustBar() {
+  const prefersReduced = useReducedMotion()
+
   return (
-    <section className={styles.bar} aria-label="Product highlights">
-      <div className={styles.inner}>
-        {items.map((item, i) => (
+    <section
+      className="border-y border-amazia-sand/40 bg-amazia-cream/50 py-6 md:py-8"
+      aria-label="Certifications and trust signals"
+    >
+      <div className="container-content">
+        {prefersReduced ? (
+          <div className="trust-bar-scroll">
+            {details.map((item) => (
+              <div
+                key={item.title}
+                className="card-premium min-w-[200px] flex-shrink-0 px-5 py-4 md:min-w-0 md:flex-1"
+              >
+                <p className="font-body text-sm font-semibold text-amazia-espresso">
+                  {item.title}
+                </p>
+                <p className="mt-1 font-body text-xs text-amazia-ink-light">{item.sub}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
           <motion.div
-            key={item.title}
-            className={styles.item}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="trust-bar-scroll"
           >
-            <span className={styles.title}>{item.title}</span>
-            <span className={styles.sub}>{item.sub}</span>
-            {i < items.length - 1 && <span className={styles.divider} aria-hidden="true" />}
+            {details.map((item, i) => (
+              <motion.div
+                key={item.title}
+                variants={fadeUp}
+                className="card-premium min-w-[200px] flex-shrink-0 px-5 py-4 md:min-w-0 md:flex-1"
+              >
+                <p className="font-body text-sm font-semibold text-amazia-espresso">
+                  {item.title}
+                </p>
+                <p className="mt-1 font-body text-xs text-amazia-ink-light">{item.sub}</p>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
+        )}
+
+        <p className="sr-only">
+          Certifications: {TRUST_BADGES.map((b) => b.label).join(', ')}
+        </p>
       </div>
     </section>
   )

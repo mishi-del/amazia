@@ -1,58 +1,43 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import styles from './FAQAccordion.module.css'
-
-const faqs = [
-  {
-    q: 'Is this safe for sensitive skin?',
-    a: 'Yes — fragrance-free, pH-balanced, and free of common irritants. Patch test behind the ear for 24 hours if highly reactive.',
-  },
-  {
-    q: 'Is it truly fragrance-free?',
-    a: '100%. No synthetic perfume, no essential oils used to mask scent.',
-  },
-  {
-    q: 'How long until I see results?',
-    a: 'Many notice less tightness within 7–14 days. Full barrier repair typically takes 4–6 weeks of twice-daily use.',
-  },
-  {
-    q: 'Who should use this?',
-    a: 'Anyone with a compromised barrier — redness, sensitivity, dehydration, or post-treatment irritation.',
-  },
-  {
-    q: 'Shipping & COD?',
-    a: 'We ship across Pakistan. Free shipping above Rs. 4,500. COD available nationwide.',
-  },
-  {
-    q: 'Where in my routine?',
-    a: 'After cleansing, before moisturizer — AM and PM. Use SPF in the morning.',
-  },
-]
+import { FAQS } from '../../constants/brand'
 
 export default function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <section className={styles.section} id="faq">
-      <div className={styles.inner}>
-        <div className={styles.header}>
-          <p className="label">FAQ</p>
-          <h2 className={styles.heading}>Questions, answered.</h2>
+    <section id="faq" className="section-padding-lg bg-amazia-ivory">
+      <div className="container-content max-w-3xl">
+        <div className="mb-10 text-center">
+          <p className="label-accent">FAQ</p>
+          <h2 className="mt-3 font-display text-3xl text-amazia-espresso md:text-4xl">
+            Questions, answered.
+          </h2>
+          <p className="mt-3 font-body text-sm text-amazia-ink-light">
+            {FAQS.length} answers covering ingredients, COD, returns, and skin types.
+          </p>
         </div>
 
-        <div className={styles.list}>
-          {faqs.map((faq, i) => {
+        <div className="divide-y divide-amazia-sand/60 border-y border-amazia-sand/60">
+          {FAQS.map((faq, i) => {
             const isOpen = openIndex === i
             return (
-              <div key={faq.q} className={styles.item}>
+              <div key={faq.q}>
                 <button
                   type="button"
-                  className={styles.trigger}
-                  onClick={() => setOpenIndex(i)}
+                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  onClick={() => setOpenIndex(isOpen ? -1 : i)}
                   aria-expanded={isOpen}
                 >
-                  <span>{faq.q}</span>
-                  <span className={styles.icon}>{isOpen ? '−' : '+'}</span>
+                  <span className="font-headline text-base font-semibold text-amazia-espresso md:text-lg">
+                    {faq.q}
+                  </span>
+                  <span
+                    className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-amazia-sand font-body text-lg text-amazia-teal"
+                    aria-hidden="true"
+                  >
+                    {isOpen ? '−' : '+'}
+                  </span>
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
@@ -61,9 +46,11 @@ export default function FAQAccordion() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                      className={styles.panel}
+                      className="overflow-hidden"
                     >
-                      <p>{faq.a}</p>
+                      <p className="pb-5 font-body text-sm leading-relaxed text-amazia-ink">
+                        {faq.a}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>

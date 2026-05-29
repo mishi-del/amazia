@@ -7,6 +7,7 @@ import { connectDb } from './db.js'
 import reviewRoutes from './routes/reviews.js'
 import newsletterRoutes from './routes/newsletter.js'
 import chatRoutes from './routes/chat.js'
+import metaRoutes from './routes/meta.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
@@ -37,6 +38,7 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/reviews', reviewRoutes)
 app.use('/api/newsletter', newsletterRoutes)
 app.use('/api/chat', chatRoutes)
+app.use('/api/meta', metaRoutes)
 
 async function start() {
   await connectDb()

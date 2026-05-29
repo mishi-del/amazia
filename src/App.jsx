@@ -1,100 +1,31 @@
+import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
-
-import AnnouncementBar from './components/AnnouncementBar/AnnouncementBar'
-
-import Navbar from './components/Navbar/Navbar'
-
-import Hero from './components/Hero/Hero'
-
-import TrustBar from './components/TrustBar/TrustBar'
-
-import ProblemStatement from './components/ProblemStatement/ProblemStatement'
-
-import ProductReveal from './components/ProductReveal/ProductReveal'
-
-import HowItWorks from './components/HowItWorks/HowItWorks'
-
-import BeforeAfter from './components/BeforeAfter/BeforeAfter'
-
-import IngredientDive from './components/IngredientDive/IngredientDive'
-
-import BundleSection from './components/BundleSection/BundleSection'
-
-import Testimonials from './components/Testimonials/Testimonials'
-
-import FAQAccordion from './components/FAQAccordion/FAQAccordion'
-
-import EmailCapture from './components/EmailCapture/EmailCapture'
-
-import EmailPopup from './components/EmailPopup/EmailPopup'
-
-import FinalCTA from './components/FinalCTA/FinalCTA'
-
-import WhatsAppButton from './components/WhatsAppButton/WhatsAppButton'
-
-import AuthModal from './components/AuthModal/AuthModal'
-
-import AuthHandler from './components/AuthHandler/AuthHandler'
-
-import AiGuide from './components/AiGuide/AiGuide'
-
-
+import AnalyticsProvider from './components/tracking/AnalyticsProvider'
+import HomePage from './pages/HomePage'
+import EntityPage from './pages/EntityPage'
+import PolicyPage from './pages/PolicyPage'
+import NotFound from './pages/NotFound'
+import { ENTITY_PAGES } from './constants/brand'
 
 function App() {
-
   return (
-
     <AuthProvider>
-
-      <AuthHandler />
-
-      <AnnouncementBar />
-
-      <Navbar />
-
-      <main>
-
-        <Hero />
-
-        <TrustBar />
-
-        <ProblemStatement />
-
-        <ProductReveal />
-
-        <HowItWorks />
-
-        <BeforeAfter />
-
-        <IngredientDive />
-
-        <BundleSection />
-
-        <Testimonials />
-
-        <FAQAccordion />
-
-        <EmailCapture />
-
-        <FinalCTA />
-
-      </main>
-
-      <WhatsAppButton />
-
-      <EmailPopup />
-
-      <AiGuide />
-
-      <AuthModal />
-
+      <AnalyticsProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          {ENTITY_PAGES.map((p) => (
+            <Route key={p.slug} path={`/${p.slug}`} element={<EntityPage />} />
+          ))}
+          <Route path="/shipping-policy" element={<PolicyPage />} />
+          <Route path="/refund-policy" element={<PolicyPage />} />
+          <Route path="/privacy-policy" element={<PolicyPage />} />
+          <Route path="/terms-of-service" element={<PolicyPage />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnalyticsProvider>
     </AuthProvider>
-
   )
-
 }
 
-
-
 export default App
-
