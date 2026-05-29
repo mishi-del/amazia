@@ -40,6 +40,8 @@ export default function EmailPopup() {
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState(user?.email || '')
   const [done, setDone] = useState(false)
+  const [promoCode, setPromoCode] = useState('')
+  const [emailSent, setEmailSent] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [minimized, setMinimized] = useState(false)
@@ -101,10 +103,12 @@ export default function EmailPopup() {
     setSending(true)
 
     try {
-      await postToApi(API.newsletter, {
+      const data = await postToApi(API.newsletter, {
         email: trimmed,
         source: 'popup',
       })
+      setPromoCode(data.promoCode || '')
+      setEmailSent(Boolean(data.emailSent))
       setDone(true)
       savePopupState({ subscribed: true })
       setTimeout(() => setOpen(false), 2800)
@@ -205,9 +209,22 @@ export default function EmailPopup() {
                 >
                   <span className={styles.successIcon}>✓</span>
                   <h2 className={styles.title}>You&apos;re in.</h2>
-                  <p className={styles.text}>
-                    Check your inbox for your 10% code. Your barrier will thank you.
-                  </p>
+                  {promoCode ? (
+                    <>
+                      <p className={styles.code} aria-label="Discount code">
+                        {promoCode}
+                      </p>
+                      <p className={styles.text}>
+                        {emailSent
+                          ? 'Your 10% code is above — we emailed it too. Check spam if you do not see it.'
+                          : 'Use this code at checkout. Your barrier will thank you.'}
+                      </p>
+                    </>
+                  ) : (
+                    <p className={styles.text}>
+                      Check your inbox for your 10% code. Your barrier will thank you.
+                    </p>
+                  )}
                 </motion.div>
               )}
             </motion.div>

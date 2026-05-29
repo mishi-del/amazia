@@ -1,0 +1,66 @@
+FIX LIVE SITE — NO RENDER, NO CREDIT CARD
+==========================================
+
+Newsletter + AMAZIA Guide now run ON VERCEL (same as your website).
+You do NOT need Render.
+
+
+STEP 1 — Push code to GitHub
+----------------------------
+In PowerShell:
+
+  cd "C:\Users\HP 640\Desktop\amazia"
+  git add .
+  git commit -m "Run API on Vercel (no Render)"
+  git push
+
+(If git asks to login, use browser sign-in.)
+
+
+STEP 2 — Vercel environment variables
+-------------------------------------
+1. https://vercel.com → your project (amazia-o5n1)
+2. Settings → Environment Variables
+3. Add these (copy MONGODB_URI from your .env file):
+
+   MONGODB_URI = mongodb+srv://...   (required)
+   NEWSLETTER_PROMO_CODE = BARRIER10   (optional)
+
+   Optional — email the 10% code:
+   SMTP_HOST = smtp.gmail.com
+   SMTP_PORT = 587
+   SMTP_SECURE = false
+   SMTP_USER = your@gmail.com
+   SMTP_PASS = gmail-app-password
+   EMAIL_FROM = AMAZIA <your@gmail.com>
+
+   Keep your VITE_FIREBASE_* variables too.
+
+   VITE_API_URL = leave EMPTY on Vercel (site uses /api on same domain)
+
+4. Apply to Production → Save
+
+
+STEP 3 — Redeploy
+-----------------
+Deployments → ... → Redeploy (must redeploy after adding env vars)
+
+
+STEP 4 — MongoDB Atlas
+----------------------
+https://cloud.mongodb.com → Network Access → Allow 0.0.0.0/0
+
+
+STEP 5 — Test
+-------------
+1. https://amazia-o5n1.vercel.app/api/health
+   → should show "ok": true
+
+2. 10% popup → email → shows BARRIER10
+
+3. AMAZIA Guide → ask "price" → gets a reply
+
+
+Local dev (your PC)
+-------------------
+Still use RESTART-AMAZIA.bat — no change.

@@ -62,3 +62,27 @@ export async function sendPasswordResetEmail(to, resetUrl) {
 export function isSmtpConfigured() {
   return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS)
 }
+
+export function getNewsletterPromoCode() {
+  return (process.env.NEWSLETTER_PROMO_CODE || 'BARRIER10').trim() || 'BARRIER10'
+}
+
+export async function sendNewsletterOfferEmail(to) {
+  const code = getNewsletterPromoCode()
+  const shopUrl = (process.env.FRONTEND_URL || 'https://amazia.pk').replace(/\/$/, '')
+
+  return sendMail({
+    to,
+    subject: 'Your 10% off — AMAZIA',
+    text: `Thanks for joining AMAZIA.\n\nYour first-order code: ${code}\n\nUse it at checkout on ${shopUrl}\n\nBarrier care, thoughtfully.`,
+    html: `
+      <p>Thanks for joining <strong>AMAZIA</strong>.</p>
+      <p>Your first-order code:</p>
+      <p style="font-size:1.35em;letter-spacing:0.12em;font-weight:700;color:#1a5c52;">${code}</p>
+      <p>Enter it at checkout on <a href="${shopUrl}">${shopUrl}</a>.</p>
+      <p style="color:#666;font-size:0.9em;">One use per customer. Cannot be combined with other offers.</p>
+    `,
+    logLabel: '10% welcome code',
+    logUrl: code,
+  })
+}

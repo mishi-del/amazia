@@ -1,25 +1,17 @@
 import { Router } from 'express'
-import { guideReply } from '../lib/chatKnowledge.js'
+import { handleChatMessage } from '../handlers/chatHandler.js'
 
 const router = Router()
 
 router.post('/', async (req, res) => {
   try {
-    const { message } = req.body || {}
-    const trimmed = String(message || '').trim()
-
-    if (!trimmed) {
-      return res.status(400).json({ error: 'Message is required.' })
-    }
-    if (trimmed.length > 2000) {
-      return res.status(400).json({ error: 'Message is too long.' })
-    }
-
-    const reply = guideReply(trimmed)
-    res.json({ ok: true, reply, source: 'guide' })
+    const data = handleChatMessage(req.body?.message)
+    res.json(data)
   } catch (err) {
     console.error('[chat]', err.message)
-    res.status(500).json({ error: 'Guide is temporarily unavailable.' })
+    res.status(err.status || 500).json({
+      error: err.status ? err.message : 'Guide is temporarily unavailable.',
+    })
   }
 })
 

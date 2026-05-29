@@ -11,6 +11,8 @@ export default function EmailCapture() {
   const { user } = useAuth()
   const [email, setEmail] = useState(user?.email || '')
   const [done, setDone] = useState(false)
+  const [promoCode, setPromoCode] = useState('')
+  const [emailSent, setEmailSent] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
 
@@ -27,10 +29,12 @@ export default function EmailCapture() {
     setSending(true)
 
     try {
-      await postToApi(API.newsletter, {
+      const data = await postToApi(API.newsletter, {
         email: trimmed,
         source: 'footer_section',
       })
+      setPromoCode(data.promoCode || '')
+      setEmailSent(Boolean(data.emailSent))
       setDone(true)
       trackLead('footer_section')
       try {
@@ -69,9 +73,25 @@ export default function EmailCapture() {
 
             <div className="flex flex-col justify-center">
               {done ? (
-                <p className="font-headline text-lg italic text-amazia-teal">
-                  Thank you — check your inbox soon.
-                </p>
+                <div className="space-y-2">
+                  {promoCode ? (
+                    <>
+                      <p className="font-headline text-lg text-amazia-teal">
+                        Your code:{' '}
+                        <span className="font-mono tracking-wider">{promoCode}</span>
+                      </p>
+                      <p className="font-body text-sm text-amazia-ink">
+                        {emailSent
+                          ? 'We also emailed this code to you — check your inbox and spam folder.'
+                          : 'Use this code at checkout on your first order.'}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="font-headline text-lg italic text-amazia-teal">
+                      Thank you — check your inbox soon.
+                    </p>
+                  )}
+                </div>
               ) : (
                 <form className="space-y-3" onSubmit={handleSubmit}>
                   <label htmlFor="section-email" className="sr-only">

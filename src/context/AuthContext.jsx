@@ -8,11 +8,13 @@ import {
 } from 'react'
 import {
   createUserWithEmailAndPassword,
+  getRedirectResult,
   onAuthStateChanged,
   sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
   updateProfile,
 } from 'firebase/auth'
@@ -44,6 +46,12 @@ function friendlyFirebaseError(code) {
     'auth/weak-password': 'Password must be at least 6 characters.',
     'auth/too-many-requests': 'Too many attempts. Wait a few minutes and try again.',
     'auth/popup-closed-by-user': 'Google sign-in was cancelled.',
+    'auth/popup-blocked':
+      'Pop-up was blocked. Allow pop-ups for this site, or try again — we will use a full-page sign-in.',
+    'auth/unauthorized-domain':
+      'This site URL is not allowed in Firebase. Add it under Authentication → Settings → Authorized domains.',
+    'auth/operation-not-allowed':
+      'Google sign-in is off in Firebase. Enable Google under Authentication → Sign-in method.',
     'auth/account-exists-with-different-credential':
       'This email is registered another way. Try email/password or Google.',
   }
@@ -60,11 +68,29 @@ export function AuthProvider({ children }) {
       setLoading(false)
       return undefined
     }
+
+    let cancelled = false
+
+    getRedirectResult(auth)
+      .then((cred) => {
+        if (cancelled || !cred?.user) return
+        setUser(mapFirebaseUser(cred.user))
+        setAuthModal(null)
+      })
+      .catch((err) => {
+        if (!cancelled && err?.code) {
+          console.warn('[auth] Google redirect:', err.code)
+        }
+      })
+
     const unsub = onAuthStateChanged(auth, (fbUser) => {
       setUser(mapFirebaseUser(fbUser))
       setLoading(false)
     })
-    return unsub
+    return () => {
+      cancelled = true
+      unsub()
+    }
   }, [])
 
   const ensureConfigured = () => {
@@ -117,9 +143,31 @@ export function AuthProvider({ children }) {
 
   const loginWithGoogle = useCallback(async () => {
     ensureConfigured()
-    const cred = await signInWithPopup(auth, googleProvider)
-    closeAuth()
-    return mapFirebaseUser(cred.user)
+
+    const preferRedirect =
+      typeof navigator !== 'undefined' &&
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
+    if (preferRedirect) {
+      await signInWithRedirect(auth, googleProvider)
+      return null
+    }
+
+    try {
+      const cred = await signInWithPopup(auth, googleProvider)
+      closeAuth()
+      return mapFirebaseUser(cred.user)
+    } catch (err) {
+      const useRedirect =
+        err?.code === 'auth/popup-blocked' ||
+        err?.code === 'auth/cancelled-popup-request' ||
+        err?.code === 'auth/operation-not-supported-in-this-environment'
+      if (useRedirect) {
+        await signInWithRedirect(auth, googleProvider)
+        return null
+      }
+      throw err
+    }
   }, [closeAuth])
 
   const logout = useCallback(async () => {
