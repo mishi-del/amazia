@@ -27,6 +27,7 @@ export default async function handler(req, res) {
     })
     sendJson(res, 200, data)
   } catch (err) {
+    console.error('[newsletter]', err.message, err.stack)
     handleHandlerError(res, err, 'newsletter')
   }
 }

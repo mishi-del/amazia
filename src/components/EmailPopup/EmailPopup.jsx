@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import Button from '../ui/Button'
 import { API } from '../../constants/links'
+import { DEFAULT_PROMO_CODE } from '../../constants/promo'
 import { postToApi } from '../../utils/api'
 import { useAuth } from '../../context/AuthContext'
 import styles from './EmailPopup.module.css'
@@ -107,11 +108,10 @@ export default function EmailPopup() {
         email: trimmed,
         source: 'popup',
       })
-      setPromoCode(data.promoCode || '')
+      setPromoCode(data.promoCode || DEFAULT_PROMO_CODE)
       setEmailSent(Boolean(data.emailSent))
       setDone(true)
-      savePopupState({ subscribed: true })
-      setTimeout(() => setOpen(false), 2800)
+      savePopupState({ subscribed: true, promoCode: data.promoCode || DEFAULT_PROMO_CODE })
     } catch (err) {
       setError(err.message || 'Something went wrong. Please try again.')
     } finally {
@@ -216,8 +216,8 @@ export default function EmailPopup() {
                       </p>
                       <p className={styles.text}>
                         {emailSent
-                          ? 'Your 10% code is above — we emailed it too. Check spam if you do not see it.'
-                          : 'Use this code at checkout. Your barrier will thank you.'}
+                          ? 'We emailed this code too — check Gmail inbox and Spam.'
+                          : 'Save this code for checkout. Email delivery is not set up on the server yet — the code above is your 10% off.'}
                       </p>
                     </>
                   ) : (

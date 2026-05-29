@@ -10,16 +10,27 @@ export function sendJson(res, status, data) {
 }
 
 export async function readJsonBody(req) {
-  if (req.body && typeof req.body === 'object') {
-    return req.body
+  if (req.body !== undefined && req.body !== null) {
+    if (typeof req.body === 'object') return req.body
+    if (typeof req.body === 'string' && req.body.trim()) {
+      try {
+        return JSON.parse(req.body)
+      } catch {
+        return {}
+      }
+    }
   }
   const chunks = []
   for await (const chunk of req) {
     chunks.push(chunk)
   }
   const raw = Buffer.concat(chunks).toString('utf8')
-  if (!raw) return {}
-  return JSON.parse(raw)
+  if (!raw.trim()) return {}
+  try {
+    return JSON.parse(raw)
+  } catch {
+    return {}
+  }
 }
 
 export function handleHandlerError(res, err, logLabel) {

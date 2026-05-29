@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Button from '../ui/Button'
 import { API } from '../../constants/links'
+import { DEFAULT_PROMO_CODE } from '../../constants/promo'
 import { postToApi } from '../../utils/api'
 import { useAuth } from '../../context/AuthContext'
 import { viewportOnce } from '../../lib/animations'
@@ -33,7 +34,7 @@ export default function EmailCapture() {
         email: trimmed,
         source: 'footer_section',
       })
-      setPromoCode(data.promoCode || '')
+      setPromoCode(data.promoCode || DEFAULT_PROMO_CODE)
       setEmailSent(Boolean(data.emailSent))
       setDone(true)
       trackLead('footer_section')
@@ -82,8 +83,8 @@ export default function EmailCapture() {
                       </p>
                       <p className="font-body text-sm text-amazia-ink">
                         {emailSent
-                          ? 'We also emailed this code to you — check your inbox and spam folder.'
-                          : 'Use this code at checkout on your first order.'}
+                          ? 'We also emailed this code — check Gmail inbox and Spam.'
+                          : 'Use this code at checkout. (Email is not configured on the server yet.)'}
                       </p>
                     </>
                   ) : (

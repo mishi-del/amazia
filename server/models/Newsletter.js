@@ -11,4 +11,5 @@ const newsletterSchema = new mongoose.Schema(
 
 newsletterSchema.index({ email: 1 }, { unique: true })
 
-export const Newsletter = mongoose.model('Newsletter', newsletterSchema)
+export const Newsletter =
+  mongoose.models.Newsletter || mongoose.model('Newsletter', newsletterSchema)

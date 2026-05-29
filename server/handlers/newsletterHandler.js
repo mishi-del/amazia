@@ -41,7 +41,11 @@ export async function handleNewsletterSubscribe({ email, source, website, user }
     user.newsletterSubscribed = true
     await user.save()
   } else {
-    await User.updateOne({ email: trimmed }, { $set: { newsletterSubscribed: true } })
+    try {
+      await User.updateOne({ email: trimmed }, { $set: { newsletterSubscribed: true } })
+    } catch {
+      /* guest signup — newsletter record is enough */
+    }
   }
 
   const promoCode = getNewsletterPromoCode()
