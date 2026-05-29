@@ -13,11 +13,15 @@ export async function connectDb() {
   }
 
   mongoose.set('strictQuery', true)
-  globalCache.__amaziaMongoose = await mongoose.connect(uri, {
+
+  const opts = {
     bufferCommands: false,
-    maxPoolSize: 5,
-    serverSelectionTimeoutMS: 10000,
-    socketTimeoutMS: 20000,
-  })
+    maxPoolSize: 1,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 10000,
+    family: 4,
+  }
+
+  globalCache.__amaziaMongoose = await mongoose.connect(uri, opts)
   return globalCache.__amaziaMongoose
 }
