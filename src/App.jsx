@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import AnalyticsProvider from './components/tracking/AnalyticsProvider'
+import HashScroll from './components/nav/HashScroll'
 import HomePage from './pages/HomePage'
 import EntityPage from './pages/EntityPage'
 import PolicyPage from './pages/PolicyPage'
@@ -11,6 +12,7 @@ function App() {
   return (
     <AuthProvider>
       <AnalyticsProvider>
+        <HashScroll />
         <Routes>
           <Route path="/" element={<HomePage />} />
           {ENTITY_PAGES.map((p) => (

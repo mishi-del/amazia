@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { SHOP_URL, PRODUCT_PRICE, WHATSAPP_URL } from '../../constants/links'
 import { useAuth } from '../../context/AuthContext'
+import SectionLink from '../nav/SectionLink'
 
 const navLinks = [
   { to: '/#product', label: 'Serum' },
@@ -50,13 +51,13 @@ export default function Navbar() {
 
         <nav className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => (
-            <Link
+            <SectionLink
               key={link.to}
               to={link.to}
               className="font-body text-sm text-amazia-ink transition-colors hover:text-amazia-teal"
             >
               {link.label}
-            </Link>
+            </SectionLink>
           ))}
           {!loading && (
             <div className="flex items-center gap-3 border-l border-amazia-sand/60 pl-4">
@@ -107,14 +108,14 @@ export default function Navbar() {
         <div className="fixed inset-0 top-0 z-30 bg-amazia-ivory pt-14 lg:hidden">
           <nav className="flex flex-col gap-1 px-6 py-8">
             {navLinks.map((link) => (
-              <Link
+              <SectionLink
                 key={link.to}
                 to={link.to}
                 className="border-b border-amazia-sand/30 py-4 font-headline text-xl text-amazia-espresso"
-                onClick={() => setMenuOpen(false)}
+                onNavigate={() => setMenuOpen(false)}
               >
                 {link.label}
-              </Link>
+              </SectionLink>
             ))}
             {!loading && (
               <button

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { TAGLINE, BRAND_NAME, DOMAIN, ENTITY_PAGES } from '../../constants/brand'
+import SectionLink from '../nav/SectionLink'
 
 const homeLinks = {
   Shop: [
@@ -48,12 +49,12 @@ export default function Footer() {
               <ul className="mt-4 space-y-2">
                 {items.map((link) => (
                   <li key={link.to}>
-                    <Link
+                    <SectionLink
                       to={link.to}
                       className="font-body text-sm text-white/80 transition-colors hover:text-white"
                     >
                       {link.label}
-                    </Link>
+                    </SectionLink>
                   </li>
                 ))}
               </ul>
