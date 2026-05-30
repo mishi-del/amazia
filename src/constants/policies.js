@@ -69,6 +69,14 @@ export const POLICIES = {
         heading: 'Intellectual property',
         body: 'All AMAZIA branding, content, and packaging are property of AMAZIA Grid (Pvt.) Ltd.',
       },
+      {
+        heading: 'Governing law',
+        body: 'These terms are governed by the laws of Pakistan. Disputes are subject to the courts of Punjab, Pakistan.',
+      },
+      {
+        heading: 'Limitation of liability',
+        body: 'AMAZIA Grid (Pvt.) Ltd. is not liable for indirect damages arising from use of cosmetic products beyond the purchase price of the item in question.',
+      },
     ],
   },
 }

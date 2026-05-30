@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import { SHOP_URL, PRODUCT_PRICE } from '../../constants/links'
+import { SHOP_URL, PRODUCT_PRICE, WHATSAPP_URL } from '../../constants/links'
 import { useAuth } from '../../context/AuthContext'
 
 const navLinks = [
@@ -135,6 +135,17 @@ export default function Navbar() {
             >
               Shop — {PRODUCT_PRICE}
             </a>
+            {WHATSAPP_URL && (
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex items-center justify-center gap-2 rounded-button border-2 border-[#25D366] py-3 font-body text-sm font-semibold text-[#25D366]"
+                onClick={() => setMenuOpen(false)}
+              >
+                WhatsApp support
+              </a>
+            )}
           </nav>
         </div>
       )}

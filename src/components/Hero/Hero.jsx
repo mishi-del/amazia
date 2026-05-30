@@ -17,7 +17,6 @@ import { scaleIn, staggerContainer, wordReveal } from '../../lib/animations'
 import { useReducedMotion } from '../../lib/useReducedMotion'
 
 function HeroCopy({ motionProps = {} }) {
-  const words = HERO_HEADLINE.split(' ')
   const Tag = motionProps.variants ? motion.p : 'p'
   const TagDiv = motionProps.variants ? motion.div : 'div'
   const TagH1 = motionProps.variants ? motion.h1 : 'h1'
@@ -50,37 +49,30 @@ function HeroCopy({ motionProps = {} }) {
         >
           {HERO_ASPIRATION}
         </TagSpan>
-        <span className="block text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl">
-          {words.map((word, i) =>
-            motionProps.variants ? (
-              <motion.span
-                key={i}
-                custom={i + 2}
-                variants={wordReveal}
-                initial="hidden"
-                animate="show"
-                className="gold-gradient mr-2 inline-block"
-              >
-                {word}
-              </motion.span>
-            ) : (
-              <span key={i} className="gold-gradient mr-2 inline-block">
-                {word}
-              </span>
-            )
-          )}
-        </span>
+        {motionProps.variants ? (
+          <motion.span
+            variants={wordReveal}
+            custom={2}
+            className="gold-gradient block text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl"
+          >
+            {HERO_HEADLINE}
+          </motion.span>
+        ) : (
+          <span className="gold-gradient block text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl">
+            {HERO_HEADLINE}
+          </span>
+        )}
       </TagH1>
 
       <Tag
-        {...(motionProps.variants ? { variants: wordReveal, custom: words.length + 2 } : {})}
+        {...(motionProps.variants ? { variants: wordReveal, custom: 3 } : {})}
         className="max-w-content font-headline text-base italic text-amazia-ink sm:text-lg lg:text-xl"
       >
         {HERO_SUBHEADLINE}
       </Tag>
 
       <TagDiv
-        {...(motionProps.variants ? { variants: wordReveal, custom: words.length + 3 } : {})}
+        {...(motionProps.variants ? { variants: wordReveal, custom: 4 } : {})}
         className="flex flex-col gap-3 sm:flex-row sm:gap-4"
       >
         <a
@@ -98,7 +90,7 @@ function HeroCopy({ motionProps = {} }) {
       <SecureCheckoutNote />
 
       <TagDiv
-        {...(motionProps.variants ? { variants: wordReveal, custom: words.length + 4 } : {})}
+        {...(motionProps.variants ? { variants: wordReveal, custom: 5 } : {})}
         className="cod-callout"
       >
         <span className="text-xl text-amazia-sage sm:text-2xl" aria-hidden="true">

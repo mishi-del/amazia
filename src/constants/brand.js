@@ -6,7 +6,7 @@ export const BRAND_NAME = 'AMAZIA'
 
 export const DOMAIN = 'amaziagrid.com'
 
-export const POSITIONING = "Pakistan's barrier care authority"
+export const POSITIONING = 'Barrier-support skincare. Formulated for Pakistani skin.'
 
 /** Conversion layer: Problem → Aspiration → Promise */
 export const HERO_PROBLEM =
@@ -17,12 +17,13 @@ export const HERO_ASPIRATION = 'Skin that feels calm, resilient, and truly healt
 export const HERO_HEADLINE =
   'Your skin barrier deserves the truth about what is inside.'
 
-export const HERO_SUBHEADLINE = `${POSITIONING}. Ectoin 0.5%. Ceramide NP 2.5%. CoA on every batch.`
+export const HERO_SUBHEADLINE =
+  'Barrier-support skincare. Formulated for Pakistani skin. Ectoin 0.5%. Ceramide NP 2.5%.'
 
 export const PRODUCT_BENEFITS = [
   {
     title: 'Strengthens the barrier',
-    desc: 'Ceramide NP 2.5% rebuilds the lipid matrix your skin needs to hold moisture in.',
+    desc: 'Ceramide NP 2.5% strengthens the lipid matrix your skin needs to hold moisture in.',
   },
   {
     title: 'Calms stressed skin',
@@ -39,12 +40,25 @@ export const PRODUCT_BENEFITS = [
 ]
 
 export const PRODUCT_TEXTURE = {
-  headline: 'Texture & feel',
+  headline: 'How it feels',
   points: [
-    'Lightweight serum — not greasy, not sticky',
-    'Absorbs in seconds on damp skin',
+    'Lightweight, non-sticky formula — absorbs in under 30 seconds',
+    'No white cast — suitable for all Pakistani skin tones',
     'Leaves a calm, satin finish under moisturiser',
     'Layers cleanly with SPF in the morning',
+  ],
+}
+
+export const HOW_TO_USE = {
+  morning: [
+    'Cleanse face with a gentle cleanser',
+    'Apply 2–3 drops of Barrier Support Serum',
+    'Follow with SPF moisturiser',
+  ],
+  evening: [
+    'Double cleanse to remove SPF and impurities',
+    'Apply Barrier Support Serum on damp skin',
+    'Layer with night moisturiser or facial oil',
   ],
 }
 
@@ -73,7 +87,7 @@ export const ENTITY_PAGES = [
     slug: 'ceramide-benefits-skin-barrier',
     title: 'Ceramide Benefits for Your Skin Barrier',
     description:
-      'Why ceramide NP matters for barrier repair, dry climate, and sensitive skin in Pakistan.',
+      'Why ceramide NP matters for barrier support, dry climate, and sensitive skin in Pakistan.',
     keyword: 'ceramide benefits skincare',
   },
   {
@@ -135,7 +149,7 @@ export const PRODUCT = {
   badges: ['CoA-Verified', 'Fragrance-Free', 'pH 5.2–5.5'],
   science: [
     { name: 'Ectoin', pct: '0.5%', desc: 'Cellular protectant — hydration shield under stress.' },
-    { name: 'Ceramide NP', pct: '2.5%', desc: 'Rebuilds the lipid barrier matrix.' },
+    { name: 'Ceramide NP', pct: '2.5%', desc: 'Strengthens the lipid barrier matrix.' },
     { name: 'Centella Asiatica', pct: '1.5%', desc: 'Soothes redness and supports calm tone.' },
     { name: 'Panthenol', pct: '1%', desc: 'Draws moisture in for immediate comfort.' },
   ],
@@ -224,7 +238,7 @@ export const BARRIER_SCIENCE = [
   },
   {
     title: 'Why ectoin + ceramides?',
-    desc: 'Ectoin shields stressed cells. Ceramide NP rebuilds the lipid matrix — the duo modern barrier care is built on.',
+    desc: 'Ectoin shields stressed cells. Ceramide NP strengthens the lipid matrix — the duo modern barrier care is built on.',
   },
   {
     title: 'Why CoA transparency?',
@@ -314,7 +328,7 @@ export const FAQS = [
   },
   {
     q: 'Is it truly fragrance-free?',
-    a: '100%. No synthetic perfume, no essential oils used to mask scent.',
+    a: 'Completely fragrance-free — no synthetic perfume and no essential oils used to mask scent.',
   },
   {
     q: 'How long until I see results?',

@@ -39,7 +39,7 @@ export const ENTITY_CONTENT = {
       },
       {
         heading: 'Pairing with ectoin',
-        body: 'Ceramides rebuild structure; ectoin protects under stress. Together they form modern barrier care — the core of AMAZIA\'s serum.',
+        body: 'Ceramides strengthen barrier structure; ectoin protects under stress. Together they form modern barrier care — the core of AMAZIA\'s serum.',
       },
     ],
   },

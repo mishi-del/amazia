@@ -102,6 +102,10 @@ export default function BeforeAfter() {
             </div>
           </div>
         </div>
+        <p className="mt-8 text-center font-body text-[10px] leading-relaxed text-amazia-ink-light">
+          Individual results may vary. Photos from user testing with written consent. Not edited
+          or filtered.
+        </p>
       </div>
     </section>
   )

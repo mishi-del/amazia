@@ -34,10 +34,10 @@ export default function HomePage() {
         <title>AMAZIA Skincare — Restore. Strengthen. Reveal.</title>
         <meta
           name="description"
-          content="Pakistan's barrier care authority. GMP + ISO + Halal. Ectoin 0.5%, Ceramide NP 2.5%, CoA every batch. COD nationwide."
+          content="Barrier-support skincare formulated for Pakistani skin. GMP + ISO + Halal. Ectoin 0.5%, Ceramide NP 2.5%, CoA every batch. COD nationwide."
         />
         <link rel="canonical" href="https://amaziagrid.com/" />
-        <meta property="og:title" content="AMAZIA Skincare — Barrier Care Authority" />
+        <meta property="og:title" content="AMAZIA Skincare — Restore. Strengthen. Reveal." />
         <meta property="og:url" content="https://amaziagrid.com/" />
         <meta property="og:image" content="https://amaziagrid.com/og-image.webp" />
       </Helmet>

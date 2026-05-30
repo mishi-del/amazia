@@ -12,12 +12,12 @@ export const FAQ_SNIPPETS = [
   {
     keys: ['fragrance', 'smell', 'scent', 'perfume', 'essential oil'],
     answer:
-      'It is 100% fragrance-free: no synthetic perfume and no essential oils used to mask scent.',
+      'It is completely fragrance-free: no synthetic perfume and no essential oils used to mask scent.',
   },
   {
     keys: ['result', 'how long', 'when will', 'timeline', 'see change', 'how soon'],
     answer:
-      'Many people notice less tightness within 7–14 days. Fuller barrier repair usually takes 4–6 weeks with twice-daily use (AM and PM).',
+      'Many people notice less tightness within 7–14 days. A stronger, calmer barrier typically takes 4–6 weeks with twice-daily use (AM and PM).',
   },
   {
     keys: ['who should', 'is this for me', 'right for me', 'compromised barrier', 'damaged barrier'],
@@ -81,7 +81,7 @@ export const FAQ_SNIPPETS = [
   {
     keys: ['panthenol', 'b5', 'vitamin b5'],
     answer:
-      'Panthenol (Pro-Vitamin B5) draws in moisture and supports surface comfort while ceramides and ectoin work on deeper barrier repair.',
+      'Panthenol (Pro-Vitamin B5) draws in moisture and supports surface comfort while ceramides and ectoin support deeper barrier strength.',
   },
   {
     keys: ['ingredient', 'what\'s inside', 'whats inside', 'formula', 'active'],
@@ -95,7 +95,7 @@ export const FAQ_SNIPPETS = [
   {
     keys: ['dry', 'flaky', 'tight', 'dehydrat'],
     answer:
-      'Dry, tight, or dehydrated skin often signals a weak barrier. This serum is designed to support repair — pair with a gentle moisturizer and consistent AM/PM use.',
+      'Dry, tight, or dehydrated skin often signals a weak barrier. This serum is designed to strengthen the barrier — pair with a gentle moisturizer and consistent AM/PM use.',
   },
   {
     keys: ['oily', 'greasy', 'heavy'],
@@ -155,17 +155,17 @@ export const FAQ_SNIPPETS = [
   {
     keys: ['how does it work', 'how it works', '3 step', 'three step', 'mechanism'],
     answer:
-      'See “How it works” on this page: (1) Cleanse gently, (2) Apply Barrier Support Serum so ceramides and ectoin support repair, (3) Moisturize and use SPF in the morning.',
+      'See “How it works” on this page: (1) Cleanse gently, (2) Apply Barrier Support Serum so ceramides and ectoin strengthen your barrier, (3) Moisturize and use SPF in the morning.',
   },
   {
     keys: ['amazia', 'brand', 'about us'],
     answer:
-      'AMAZIA focuses on barrier-first skincare. This page is for Barrier Support Serum — intentional, fragrance-free repair for sensitive and stressed skin in Pakistan.',
+      'AMAZIA focuses on barrier-first skincare. This page is for Barrier Support Serum — intentional, fragrance-free barrier support for sensitive and stressed skin in Pakistan.',
   },
   {
     keys: ['compare', 'cerave', 'ordinary', 'other brand', 'alternative'],
     answer:
-      'AMAZIA is built around barrier repair with ectoin, ceramides, centella, and panthenol in one fragrance-free serum. Compare ingredients and your skin goals — we are happy to explain our formula in #ingredients.',
+      'AMAZIA is built around barrier support with ectoin, ceramides, centella, and panthenol in one fragrance-free serum. Compare ingredients and your skin goals — we are happy to explain our formula in #ingredients.',
   },
 ]
 
@@ -176,7 +176,7 @@ const SECTION_HINTS = [
   { keys: ['bundle', 'shop', 'price option'], answer: 'All purchase options are in Shop — scroll to #bundles.' },
   { keys: ['review', 'write-review'], answer: 'Customer reviews and the review form are in #write-review.' },
   { keys: ['offer', 'newsletter', 'signup', 'sign up discount'], answer: 'The 10% first-order offer is in the newsletter section — #offer.' },
-  { keys: ['how it works section', 'find how'], answer: 'See “How it works” on this page for the 3-step barrier repair explanation.' },
+  { keys: ['how it works section', 'find how'], answer: 'See “How it works” on this page for the 3-step barrier support explanation.' },
   { keys: ['before', 'after'], answer: 'Before & after stories are on this page — scroll down past How it works.' },
   { keys: ['product', 'serum section'], answer: 'Product details and the four actives summary are in “The serum” section (#product).' },
 ]
@@ -205,7 +205,7 @@ export function guideReply(message) {
   }
 
   if (/\b(bye|goodbye|see you)\b/.test(lower)) {
-    return 'Take care — and give your barrier time to heal. Come back anytime you have questions.'
+    return 'Take care — and give your barrier time to strengthen. Come back anytime you have questions.'
   }
 
   if (/\b(where|find|scroll|section|navigate|go to)\b/.test(lower)) {
@@ -232,7 +232,7 @@ export function guideReply(message) {
   }
   if (bestFaq) return bestFaq.answer
 
-  return 'I can help with Barrier Support Serum — ingredients (#ingredients), how to use it, results (7–14 days for tightness; 4–6 weeks for repair), price (Rs. 3,800), shipping & COD, bundles (#bundles), reviews (#write-review), or 10% off (#offer). What would you like to know?'
+  return 'I can help with Barrier Support Serum — ingredients (#ingredients), how to use it, results (7–14 days for tightness; 4–6 weeks for barrier support), price (Rs. 3,800), shipping & COD, bundles (#bundles), reviews (#write-review), or 10% off (#offer). What would you like to know?'
 }
 
 /** @deprecated Use guideReply */
