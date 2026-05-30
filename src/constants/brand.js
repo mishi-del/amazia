@@ -111,6 +111,34 @@ export const ENTITY_PAGES = [
       'Ectoin explained: hydration shield, stress protection, and why Pakistani barrier care needs it.',
     keyword: 'ectoin skincare benefits',
   },
+  {
+    slug: 'humid-climate-skincare-pakistan',
+    title: 'Skincare in Humid Pakistani Climate',
+    description:
+      'How heat and humidity stress your barrier — lightweight, fragrance-free routines that work in Karachi, Lahore, and beyond.',
+    keyword: 'humid climate skincare pakistan',
+  },
+  {
+    slug: 'sulfate-free-skincare-pakistan',
+    title: 'Sulfate-Free Skincare Pakistan',
+    description:
+      'Why harsh sulfates strip the barrier and what to use instead for calm, balanced skin.',
+    keyword: 'sulfate free skincare pakistan',
+  },
+  {
+    slug: 'ph-balanced-skincare-pakistan',
+    title: 'pH-Balanced Skincare for Pakistani Skin',
+    description:
+      'Why pH 5.2–5.5 matters for barrier health and how to build a gentle AM/PM routine.',
+    keyword: 'ph balanced skincare pakistan',
+  },
+  {
+    slug: 'over-exfoliation-damaged-barrier',
+    title: 'Over-Exfoliation & Damaged Barrier Recovery',
+    description:
+      'Signs you have over-exfoliated, how to pause actives, and strengthen your barrier again safely.',
+    keyword: 'damaged skin barrier recovery',
+  },
 ]
 
 export const ANNOUNCEMENT_ITEMS = [
@@ -182,7 +210,7 @@ export const KEY_INGREDIENTS = [
     pct: '1.5%',
     function: 'Calm & even tone',
     what: 'A botanical used in dermatology for decades.',
-    does: 'Soothes inflammation and supports even, calm skin tone.',
+    does: 'Helps skin appear calmer and supports a more even-looking tone.',
     why: 'Essential for redness-prone skin in humid climates.',
   },
   {

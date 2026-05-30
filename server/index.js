@@ -42,6 +42,8 @@ app.use('/api/meta', metaRoutes)
 
 async function start() {
   await connectDb()
+  const { ensureIndexes } = await import('./lib/ensureIndexes.js')
+  await ensureIndexes()
   app.listen(PORT, () => {
     console.log(`AMAZIA API listening on http://localhost:${PORT}`)
   })

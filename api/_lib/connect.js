@@ -23,5 +23,11 @@ export async function connectDb() {
   }
 
   globalCache.__amaziaMongoose = await mongoose.connect(uri, opts)
+
+  const { ensureIndexes } = await import('../../server/lib/ensureIndexes.js')
+  await ensureIndexes().catch((err) => {
+    console.warn('[db] ensureIndexes:', err.message)
+  })
+
   return globalCache.__amaziaMongoose
 }

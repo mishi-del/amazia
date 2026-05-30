@@ -49,6 +49,11 @@
     @apply block h-auto max-w-full;
   }
 
+  section[id],
+  main [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

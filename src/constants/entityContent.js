@@ -67,7 +67,7 @@ export const ENTITY_CONTENT = {
       },
       {
         heading: 'AMAZIA commitment',
-        body: 'Every current AMAZIA formula is 100% fragrance-free. Verified on CoA and label.',
+        body: 'Every current AMAZIA formula is completely fragrance-free. Verified on CoA and label.',
       },
     ],
   },
@@ -82,6 +82,62 @@ export const ENTITY_CONTENT = {
       {
         heading: 'AMAZIA uses 0.5%',
         body: 'Published on every batch Certificate of Analysis — not a trace amount buried in a blend.',
+      },
+    ],
+  },
+  'humid-climate-skincare-pakistan': {
+    intro:
+      'Pakistani summers combine heat, humidity, and pollution. Heavy creams clog pores; harsh cleansers strip the barrier. Barrier-first, lightweight serums work year-round.',
+    sections: [
+      {
+        heading: 'What changes in humid cities',
+        body: 'Sweat and TEWL (water loss) rise. Skin feels oily yet tight — a classic barrier stress signal. Choose fragrance-free, pH-balanced formulas.',
+      },
+      {
+        heading: 'AMAZIA approach',
+        body: 'Barrier Support Serum layers under a light moisturiser. Ectoin shields; ceramides strengthen — without sticky residue.',
+      },
+    ],
+  },
+  'sulfate-free-skincare-pakistan': {
+    intro:
+      'Sulfates (SLS/SLES) create foam but can strip lipids from an already stressed barrier. Sulfate-free cleansing is the first step in recovery.',
+    sections: [
+      {
+        heading: 'What to look for',
+        body: 'Gentle amino-acid or glucoside cleansers, pH near 5.5, no hidden fragrance. Follow with a barrier serum before moisturiser.',
+      },
+      {
+        heading: 'AMAZIA routine',
+        body: 'Our Amino Acid Cleanser (in bundles) pairs with Barrier Support Serum for a complete sulfate-free barrier routine.',
+      },
+    ],
+  },
+  'ph-balanced-skincare-pakistan': {
+    intro:
+      'Healthy skin sits near pH 5.5. Alkaline soaps and over-acidifying routines push the barrier out of balance — leading to redness and stinging.',
+    sections: [
+      {
+        heading: 'Why pH matters',
+        body: 'When pH drifts, the lipid matrix weakens. Products labelled “pH-balanced” should state a range — AMAZIA serum is formulated at 5.2–5.5.',
+      },
+      {
+        heading: 'Build your routine',
+        body: 'Gentle cleanse → Barrier Support Serum → moisturiser → SPF (AM). Consistency beats aggressive actives.',
+      },
+    ],
+  },
+  'over-exfoliation-damaged-barrier': {
+    intro:
+      'Acids, scrubs, and trending “glass skin” routines can over-strip the barrier. Recovery means pausing actives and using barrier-support care.',
+    sections: [
+      {
+        heading: 'Signs of over-exfoliation',
+        body: 'Burning after washing, persistent redness, products that used to work now sting — stop new actives for 2–3 weeks.',
+      },
+      {
+        heading: 'Recovery steps',
+        body: 'Gentle cleanse, Barrier Support Serum AM/PM, moisturiser, SPF. Reintroduce acids slowly only when skin feels calm.',
       },
     ],
   },

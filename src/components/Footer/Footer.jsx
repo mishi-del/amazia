@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { TAGLINE, BRAND_NAME, DOMAIN, ENTITY_PAGES } from '../../constants/brand'
+import { WHATSAPP_URL } from '../../constants/links'
 import SectionLink from '../nav/SectionLink'
 
 const homeLinks = {
@@ -39,6 +40,16 @@ export default function Footer() {
             <p className="mt-4 font-body text-sm text-white/70">
               GMP · ISO 9001:2015 · Halal · CoA on every batch
             </p>
+            {WHATSAPP_URL && (
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block font-body text-sm text-amazia-gold hover:text-white"
+              >
+                WhatsApp support →
+              </a>
+            )}
           </div>
 
           {Object.entries(homeLinks).map(([group, items]) => (
@@ -66,7 +77,7 @@ export default function Footer() {
               Guides
             </p>
             <ul className="mt-4 space-y-2">
-              {ENTITY_PAGES.slice(0, 4).map((p) => (
+              {ENTITY_PAGES.map((p) => (
                 <li key={p.slug}>
                   <Link
                     to={`/${p.slug}`}

@@ -10,17 +10,18 @@ import ProductBenefits from '../components/product/ProductBenefits'
 import ProductTexture from '../components/product/ProductTexture'
 import ProductHowToUse from '../components/product/ProductHowToUse'
 import HowItWorks from '../components/HowItWorks/HowItWorks'
-import BeforeAfter from '../components/BeforeAfter/BeforeAfter'
-import IngredientDive from '../components/IngredientDive/IngredientDive'
-import CoASection from '../components/CoASection/CoASection'
-import RelatedProducts from '../components/product/RelatedProducts'
-import BundleSection from '../components/BundleSection/BundleSection'
-import Testimonials from '../components/Testimonials/Testimonials'
-import FounderSection from '../components/FounderSection/FounderSection'
 import SkinQuiz from '../components/SkinQuiz/SkinQuiz'
 import FAQAccordion from '../components/FAQAccordion/FAQAccordion'
 import EmailCapture from '../components/EmailCapture/EmailCapture'
 import FinalCTA from '../components/FinalCTA/FinalCTA'
+
+const BeforeAfter = lazy(() => import('../components/BeforeAfter/BeforeAfter'))
+const IngredientDive = lazy(() => import('../components/IngredientDive/IngredientDive'))
+const CoASection = lazy(() => import('../components/CoASection/CoASection'))
+const RelatedProducts = lazy(() => import('../components/product/RelatedProducts'))
+const BundleSection = lazy(() => import('../components/BundleSection/BundleSection'))
+const Testimonials = lazy(() => import('../components/Testimonials/Testimonials'))
+const FounderSection = lazy(() => import('../components/FounderSection/FounderSection'))
 
 const AiGuide = lazy(() => import('../components/AiGuide/AiGuide'))
 const EmailPopup = lazy(() => import('../components/EmailPopup/EmailPopup'))
@@ -54,13 +55,15 @@ export default function HomePage() {
         <ProductTexture />
         <ProductHowToUse />
         <HowItWorks />
-        <BeforeAfter />
-        <IngredientDive />
-        <CoASection />
-        <RelatedProducts />
-        <BundleSection />
-        <Testimonials />
-        <FounderSection />
+        <Suspense fallback={null}>
+          <BeforeAfter />
+          <IngredientDive />
+          <CoASection />
+          <RelatedProducts />
+          <BundleSection />
+          <Testimonials />
+          <FounderSection />
+        </Suspense>
         <SkinQuiz />
         <FAQAccordion />
         <EmailCapture />
